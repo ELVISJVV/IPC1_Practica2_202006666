@@ -82,9 +82,9 @@ public class MetodosSueltos {
             //en caso de error 
         }
    
-                    for (int i = 0; i < Static.contadorElementos; i++) {
-                System.out.println(Static.elementos[i]+"   ");
-            }
+                  //  for (int i = 0; i < Static.contadorElementos; i++) {
+               // System.out.println(Static.elementos[i]+"   ");
+          //  }
 
         JFreeChart barras = ChartFactory.createBarChart(titulo, nombrebarras, nombrenumeracion, data, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel panel1 = new ChartPanel(barras);

@@ -32,7 +32,7 @@ public class SeleccionDescendente extends Thread{
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
-            int indiceMinimo;
+            int indiceMinimo,auxiliar;
 
             for (int i = 0; i < Static.contadorElementos; i++) {
                 indiceMinimo = i;
@@ -46,9 +46,13 @@ public class SeleccionDescendente extends Thread{
                     Static.elementos[i] = Static.elementos[indiceMinimo];
                     Static.elementos[indiceMinimo] = aux;
                     grafica_barras(panel);
-
+                   
+                    
                 }
 
+            }
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
             }
             VentanaPrincipal.iniciaHilo = false; //finaliza hilo cronometro
             VentanaPrincipal.iniciaPasos = false; // finaliza hilo pasos

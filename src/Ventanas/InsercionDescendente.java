@@ -20,11 +20,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Elvis
  */
 public class InsercionDescendente extends Thread {
-     JPanel panel;
+
+    JPanel panel;
     JLabel grafica_personas;
     boolean ordenado = false;
-    public InsercionDescendente (JPanel panel){
-       this.panel = panel;
+
+    public InsercionDescendente(JPanel panel) {
+        this.panel = panel;
 
         grafica_barras(panel);
     }
@@ -35,23 +37,44 @@ public class InsercionDescendente extends Thread {
 
             int j;
             Grafica aux;
+            /*
+            for (int i = 0; i < Static.contadorElementos; i++) {
 
-            for (int i = 0; i < Static.contadorElementos; i++) { 
+                j = i;
+                aux = Static.elementos[j];
+                while ((j > 0) && (aux.getCantidad() > Static.elementos[j - 1].getCantidad())) {
 
-                j = i;           
-                aux = Static.elementos[j];           
-                while ((j > 0) && (aux.getCantidad() > Static.elementos[j-1].getCantidad())) {
-                   
-                    Static.elementos[j] = Static.elementos[j-1];    
+                    Static.elementos[j] = Static.elementos[j - 1];
                     j--;
-                    grafica_barras(panel);
-                  
 
                 }
-                Static.elementos[j] = aux;      
+                Static.elementos[j] = aux;
+                grafica_barras(panel);
                 Thread.sleep(10);
                 Pasos.y++;
             }
+             */
+            for (int i = 1; i < Static.contadorElementos; i++) { 
+                       
+                aux = Static.elementos[i];          
+                j = i-1;    
+                while ((j >=0 ) && ( Static.elementos[j].getCantidad()) < aux.getCantidad() ) {
+                    Static.elementos[j+1] = Static.elementos[j];      
+                    j--;
+                 //   grafica_barras(panel);
+                  //Pasos.y++;
+
+                }
+                Static.elementos[j+1] = aux; 
+                Pasos.y++;
+                grafica_barras(panel);
+                Thread.sleep(1300);
+                
+            }
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
+            }
+            
 
             VentanaPrincipal.iniciaHilo = false;
             VentanaPrincipal.iniciaPasos = false;

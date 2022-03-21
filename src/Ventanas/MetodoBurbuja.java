@@ -43,6 +43,37 @@ public class MetodoBurbuja extends Thread {
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
+            int bandera =1;
+            /*
+                  for (int i = 0; i < Static.contadorElementos-1 && bandera==1; i++) {
+           bandera=0;
+                   
+           for (int j = 0; j < Static.contadorElementos - 1; j++) {
+
+                    if (Static.elementos[j].getCantidad() >Static.elementos[j+1].getCantidad()) {
+                        bandera=1;
+                        aux = Static.elementos[j];
+                        Static.elementos[j] = Static.elementos[j+1];
+                        Static.elementos[j+1] = aux;
+                        // grafica_barras(panel,grafica_personas);
+                        grafica_barras(panel);
+
+                        Pasos.y++;
+                       
+                       
+                    }
+
+                    Thread.sleep(1000);
+                    // VentanaPrincipal.steps++;
+                     
+                   
+                }
+
+            }
+            */
+      
+            
+            
             for (int i = 0; i < Static.contadorElementos - 1; i++) {
            
                 for (int j = 0; j < Static.contadorElementos - i - 1; j++) {
@@ -55,20 +86,20 @@ public class MetodoBurbuja extends Thread {
                         grafica_barras(panel);
 
                         Pasos.y++;
-                        /*
-                        
-
-                        */
+                       
                        
                     }
 
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                     // VentanaPrincipal.steps++;
                      
                    
                 }
 
             }
+            
+            
+
            VentanaPrincipal.iniciaHilo = false;
            VentanaPrincipal.iniciaPasos = false;
 

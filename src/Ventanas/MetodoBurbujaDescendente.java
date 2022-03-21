@@ -35,6 +35,7 @@ public class MetodoBurbujaDescendente extends Thread{
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
+            
             for (int i = 0; i < Static.contadorElementos-1 ; i++) {
                 for (int j = 0; j < Static.contadorElementos -i- 1; j++) {
                     if (Static.elementos[j + 1].getCantidad() > Static.elementos[j].getCantidad()) {
@@ -49,7 +50,7 @@ public class MetodoBurbujaDescendente extends Thread{
                        
                     }
 
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                     
                 }
 

@@ -34,10 +34,51 @@ public class SeleccionAscendente extends Thread {
     public void run() {
         try {
             //aqui empieza el metodo burbuja
-            Grafica aux;
+            Grafica aux,tem;
             int indiceMinimo;
+             int pos;
+             
+                 for(int i=0;i<Static.contadorElementos-1;i++){
+            indiceMinimo=Static.elementos[i].getCantidad();
+            pos=i;
+            for(int j=i+1;j<Static.contadorElementos;j++){
+                if(Static.elementos[j].getCantidad()<indiceMinimo){
+                    indiceMinimo=Static.elementos[j].getCantidad();
+                    pos=j;
+                }
+            }Thread.sleep(1000);
+              if(pos!=i){
+                tem=Static.elementos[i];
+                Static.elementos[i]=Static.elementos[pos];
+                Static.elementos[pos]=tem;
+                
+            }
+        }
+             /*
+             for(int i=0; i < Static.contadorElementos - 1; i++){
+			pos=i;
+                        
+			for(int j=i+1; j < Static.contadorElementos;j++){
+				if (Static.elementos[j].getCantidad()< Static.elementos[pos].getCantidad()){
+					pos=j;
+                                                                        System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
 
-            for (int i = 0; i < Static.contadorElementos; i++) {
+				}
+			}Thread.sleep(1000);
+			if(pos !=i){
+				aux =Static.elementos[pos];
+				Static.elementos [pos] =Static.elementos[i];
+				Static.elementos [i] = aux;
+                                Pasos.y++;
+                                grafica_barras(panel);
+                               
+			}
+                         
+		}
+             */
+		
+               /*
+            
                 indiceMinimo = i;
                 for (int j = i + 1; j < Static.contadorElementos; j++) {
                     if (Static.elementos[j].getCantidad() < Static.elementos[indiceMinimo].getCantidad()) {
@@ -49,9 +90,16 @@ public class SeleccionAscendente extends Thread {
                     Static.elementos[i] = Static.elementos[indiceMinimo];
                     Static.elementos[indiceMinimo] = aux;
                     grafica_barras(panel);
-
                 }
-
+            }
+            */
+              
+            
+           
+           
+            System.out.println("empieza otra cosa");
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
             }
             VentanaPrincipal.iniciaHilo = false; //finaliza hilo cronometro
             VentanaPrincipal.iniciaPasos = false; // finaliza hilo pasos
