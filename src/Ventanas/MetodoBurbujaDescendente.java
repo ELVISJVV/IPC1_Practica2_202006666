@@ -6,7 +6,6 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,21 +19,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author Elvis
  */
-public class MetodoBurbuja extends Thread {
-
-    JPanel panel;
+public class MetodoBurbujaDescendente extends Thread{
+ JPanel panel;
     JLabel grafica_personas;
     boolean ordenado = false;
 
-    public MetodoBurbuja(JPanel panel) {
+    public MetodoBurbujaDescendente(JPanel panel) {
         this.panel = panel;
-        // grafica_personas = new JLabel();
-        // grafica_personas.setBounds(20, 20, 620, 300);
-        //grafica_personas.setOpaque(true);
-        // grafica_personas.setVisible(true);
-        //grafica_personas.setBackground(Color.WHITE);
-        //panel.add(grafica_personas);
-        //grafica_barras(panel, grafica_personas);
+       
         grafica_barras(panel);
     }
 
@@ -43,29 +35,22 @@ public class MetodoBurbuja extends Thread {
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
-            for (int i = 0; i < Static.contadorElementos - 1; i++) {
-           
-                for (int j = 0; j < Static.contadorElementos - i - 1; j++) {
-
-                    if (Static.elementos[j + 1].getCantidad() < Static.elementos[j].getCantidad()) {
-                        aux = Static.elementos[j + 1];
-                        Static.elementos[j + 1] = Static.elementos[j];
-                        Static.elementos[j] = aux;
+            for (int i = 0; i < Static.contadorElementos-1 ; i++) {
+                for (int j = 0; j < Static.contadorElementos -i- 1; j++) {
+                    if (Static.elementos[j + 1].getCantidad() > Static.elementos[j].getCantidad()) {
+                        aux = Static.elementos[j];
+                        Static.elementos[j] = Static.elementos[j+1];
+                        Static.elementos[j+1] = aux;
                         // grafica_barras(panel,grafica_personas);
                         grafica_barras(panel);
 
                         Pasos.y++;
-                        /*
-                        
-
-                        */
+                       
                        
                     }
 
                     Thread.sleep(500);
-                    // VentanaPrincipal.steps++;
-                     
-                   
+                    
                 }
 
             }
@@ -101,11 +86,7 @@ public class MetodoBurbuja extends Thread {
             panel.setLayout(new BorderLayout());
             panel.add(panel_grafica, BorderLayout.CENTER);
             panel.validate();
-            //  panel_grafica.setMouseWheelEnabled(true);
-            // panel.setLayout(new BorderLayout());
-            // grafica_personas.setLayout(new java.awt.BorderLayout());
-            //   grafica_personas.add(panel_grafica, BorderLayout.CENTER);
-            //   grafica_personas.validate();
+          
 
         } catch (Exception e) {
             System.out.println(e);

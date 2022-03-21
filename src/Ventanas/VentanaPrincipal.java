@@ -38,14 +38,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     int x[] = new int[1000];
     int y[] = new int[1000];
 
-   static int hora = 0, minuto = 0, segundo = 0;
-   static int steps=0;
-   static boolean iniciaHilo = true;
-   static boolean iniciaPasos = true;
+    static int hora = 0, minuto = 0, segundo = 0;
+    static int steps = 0;
+    static boolean iniciaHilo = true;
+    static boolean iniciaPasos = true;
     boolean corriendo = false;
     boolean corriendoPasos = false;
-    
-static   String titulos = "";
+
+    static String titulos = "";
+
     public VentanaPrincipal() {
 
         initComponents();
@@ -306,6 +307,7 @@ static   String titulos = "";
         cronometro.setText("00:00:00");
 
         labelPasos.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        labelPasos.setText("0");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -333,7 +335,7 @@ static   String titulos = "";
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelPasos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(labelPasos))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel22)
                                 .addGap(109, 109, 109)
@@ -453,6 +455,7 @@ static   String titulos = "";
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         cronometro.setText("00:00:00");
+        labelPasos.setText("0");
         String rutas = ruta.getText();
         PanelGrafica.removeAll();
         String nombreGrafico = titulo.getText();
@@ -470,42 +473,81 @@ static   String titulos = "";
         } else {
             System.out.println("no funciono");
         }
-       
         
-        MetodoBurbuja burb = new MetodoBurbuja(PanelGrafica);
-        
-        burb.start();
-         if (corriendo == false) {
+        if (algoritmo.equals("Burbuja")) {
+            if (orden.equals("Ascendente")) {
+                MetodoBurbuja burb = new MetodoBurbuja(PanelGrafica);
+                burb.start();
+
+            } else if (orden.equals("Descendente")) {
+
+                MetodoBurbujaDescendente bd = new MetodoBurbujaDescendente(PanelGrafica);
+                bd.start();
+            }
+        } else if (algoritmo.equals("Por Inserción")) {
+            if (orden.equals("Ascendente")) {
+                
+                   InsercionAscendente ia = new InsercionAscendente(PanelGrafica);
+                ia.start();
+
+            } else if (orden.equals("Descendente")) {
+
+                InsercionDescendente id = new InsercionDescendente(PanelGrafica);
+                id.start();
+            }
+
+        }else if(algoritmo.equals("Por Selección")){
+            if (orden.equals("Ascendente")) {
+                
+                SeleccionAscendente sa =new SeleccionAscendente(PanelGrafica);
+            sa.start();
+
+            } else if (orden.equals("Descendente")) {
+
+              SeleccionDescendente sd = new SeleccionDescendente(PanelGrafica);
+              sd.start();
+            }
+           
+        }
+
+        if (corriendo == false) {
             iniciaHilo = true;
             corriendo = true;
             iniciarHiloCronometro();
 
         }
-        String te="";
-        te+=steps;
-        labelPasos.setText(te);
-        
-        
-      //  Pasos pasoss = new Pasos(labelPasos);
+        if (corriendoPasos == false) {
+            iniciaPasos = true;
+            corriendoPasos = true;
+            iniciarPasos();
+        }
+        // String te="";
+        //  te+=steps;
+        //  labelPasos.setText(te);
+
+        //  Pasos pasoss = new Pasos(labelPasos);
         //pasoss.start();
     }//GEN-LAST:event_jButton3ActionPerformed
-   private void iniciarPasos(){
-       if (iniciaPasos==true) {
-           Pasos miContadorPasos= new Pasos(labelPasos);
-           miContadorPasos.start();
-       }
-   }
+    private void iniciarPasos() {
+        if (iniciaPasos == true) {
+            Pasos miContadorPasos = new Pasos(labelPasos);
+            miContadorPasos.start();
+
+        }
+    }
+
     private void iniciarHiloCronometro() {
-        if (iniciaHilo==true) {
+        if (iniciaHilo == true) {
             System.out.println("inicia hilo");
             Cronometro miCronometro = new Cronometro(cronometro);
             miCronometro.start();
         }
     }
 
-    
+
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
+        labelPasos.setText("0");
         JFileChooser jf = new JFileChooser();
         jf.showOpenDialog(this);
         File archivo = jf.getSelectedFile();
@@ -522,16 +564,20 @@ static   String titulos = "";
         //   String rutas = admin.obtenerTexto(ruta.getText());
         // System.out.println(texto);
         tipoDeAlgoritmo.setText("");
-            tipoDeOrden.setText("");
-            tipoDeVelocidad.setText("");
+        tipoDeOrden.setText("");
+        tipoDeVelocidad.setText("");
         cronometro.setText("00:00:00");
-        
-        iniciaHilo=true;
-        corriendo=false;
+        labelPasos.setText("0");
+
+        iniciaHilo = true;
+        corriendo = false;
+        iniciaPasos = true;
+        corriendoPasos = false;
         cronometro.setText("00:00:00");
+        labelPasos.setText("0");
         PanelGrafica.removeAll();
         String rutas = ruta.getText();
-               titulos = titulo.getText();
+        titulos = titulo.getText();
         MetodosSueltos a = new MetodosSueltos(rutas, PanelGrafica, titulos);
         repaint();
 

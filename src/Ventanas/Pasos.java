@@ -14,36 +14,41 @@ import javax.swing.JLabel;
 public class Pasos extends Thread {
 
     JLabel eti;
-    static int y=0;
+    static int y = 0;
+
     Pasos(JLabel pasos) {
-        VentanaPrincipal.steps=0;
+        VentanaPrincipal.steps = 0;
         this.eti = pasos;
-        
+
     }
-    public void run(){
-        
-         try{
-             int x=0;
-            
+
+    public void run() {
+
+        try {
+            int x = 0;
+            y=0;
             while (VentanaPrincipal.iniciaPasos) {
                 //Thread.sleep(10);
                 //System.out.println(x);
                 //ejecutarHiloCronometro(x);
                 ejecutarPasos(x);
-                System.out.println(y);
+               // System.out.println(y);
                 //y++;
             }
-                    
-        }catch(Exception e){
-            System.out.println("Error hilo"+ e.getMessage());
+
+        } catch (Exception e) {
+            System.out.println("Error hilo" + e.getMessage());
         }
-        
+
     }
-    private synchronized void ejecutarPasos(int x){
-        
-        VentanaPrincipal.steps++;
-        String text="";
-                text+=y;
+
+    private synchronized void ejecutarPasos(int x) {
+        if (y==+1) {
+             VentanaPrincipal.steps++;
+        }
+       
+        String text = "";
+        text += y;
         eti.setText(text);
     }
 
