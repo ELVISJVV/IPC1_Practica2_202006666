@@ -24,10 +24,11 @@ public class InsercionAscendente extends Thread {
     JPanel panel;
     JLabel grafica_personas;
     boolean ordenado = false;
+    int velocidad;
 
-    public InsercionAscendente(JPanel panel) {
+    public InsercionAscendente(JPanel panel, int velocidad) {
         this.panel = panel;
-
+        this.velocidad = velocidad;
     }
 
     @Override
@@ -53,28 +54,27 @@ public class InsercionAscendente extends Thread {
                 Thread.sleep(1000);
                 Pasos.y++;
             }
-            */
+             */
 
-            for (int i = 0; i < Static.contadorElementos; i++) { 
-                       
-                aux = Static.elementos[i];          
-                j = i-1;    
-                while ((j >=0 ) && ( Static.elementos[j].getCantidad()) > aux.getCantidad() ) {
-                    Static.elementos[j+1] = Static.elementos[j];      
+            for (int i = 0; i < Static.contadorElementos; i++) {
+
+                aux = Static.elementos[i];
+                j = i - 1;
+                while ((j >= 0) && (Static.elementos[j].getCantidad()) > aux.getCantidad()) {
+                    Static.elementos[j + 1] = Static.elementos[j];
                     j--;
-                 //   grafica_barras(panel);
-                  //Pasos.y++;
+                    //   grafica_barras(panel);
+                    //Pasos.y++;
 
                 }
-                Static.elementos[j+1] = aux; 
-              
+                Static.elementos[j + 1] = aux;
                 grafica_barras(panel);
-                Thread.sleep(1300);
-                  Pasos.y++;
-                
+                Pasos.y++;
+                Thread.sleep(velocidad);
+
             }
             for (int i = 0; i < Static.contadorElementos; i++) {
-                System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
+                System.out.println(Static.elementos[i].getCantidad() + Static.elementos[i].getNombre());
             }
             VentanaPrincipal.iniciaHilo = false;
             VentanaPrincipal.iniciaPasos = false;

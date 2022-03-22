@@ -24,10 +24,11 @@ public class InsercionDescendente extends Thread {
     JPanel panel;
     JLabel grafica_personas;
     boolean ordenado = false;
+    int velocidad;
 
-    public InsercionDescendente(JPanel panel) {
+    public InsercionDescendente(JPanel panel, int velocidad) {
         this.panel = panel;
-
+        this.velocidad = velocidad;
         grafica_barras(panel);
     }
 
@@ -54,27 +55,25 @@ public class InsercionDescendente extends Thread {
                 Pasos.y++;
             }
              */
-            for (int i = 1; i < Static.contadorElementos; i++) { 
-                       
-                aux = Static.elementos[i];          
-                j = i-1;    
-                while ((j >=0 ) && ( Static.elementos[j].getCantidad()) < aux.getCantidad() ) {
-                    Static.elementos[j+1] = Static.elementos[j];      
-                    j--;
-                 //   grafica_barras(panel);
-                  //Pasos.y++;
 
+            for (int i = 1; i < Static.contadorElementos; i++) {
+
+                aux = Static.elementos[i];
+                j = i - 1;
+                while ((j >= 0) && (Static.elementos[j].getCantidad()) < aux.getCantidad()) {
+                    Static.elementos[j + 1] = Static.elementos[j];
+                    j--;
                 }
-                Static.elementos[j+1] = aux; 
+                Thread.sleep(velocidad);
+                Static.elementos[j + 1] = aux;
                 Pasos.y++;
                 grafica_barras(panel);
-                Thread.sleep(1300);
-                
+              
+
             }
             for (int i = 0; i < Static.contadorElementos; i++) {
-                System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
+                System.out.println(Static.elementos[i].getCantidad() + Static.elementos[i].getNombre());
             }
-            
 
             VentanaPrincipal.iniciaHilo = false;
             VentanaPrincipal.iniciaPasos = false;

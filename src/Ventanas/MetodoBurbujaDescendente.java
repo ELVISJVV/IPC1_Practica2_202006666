@@ -22,11 +22,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class MetodoBurbujaDescendente extends Thread{
  JPanel panel;
     JLabel grafica_personas;
+    int velocidad;
     boolean ordenado = false;
 
-    public MetodoBurbujaDescendente(JPanel panel) {
+    public MetodoBurbujaDescendente(JPanel panel,int velocidad) {
         this.panel = panel;
-       
+       this.velocidad=velocidad;
         grafica_barras(panel);
     }
 
@@ -47,10 +48,10 @@ public class MetodoBurbujaDescendente extends Thread{
 
                         Pasos.y++;
                        
-                       
+                       Thread.sleep(velocidad);
                     }
 
-                    Thread.sleep(1000);
+                    
                     
                 }
 

@@ -23,10 +23,10 @@ public class SeleccionAscendente extends Thread {
 
     JPanel panel;
     JLabel grafica_personas;
-
-    public SeleccionAscendente(JPanel panel) {
+    int velocidad;
+    public SeleccionAscendente(JPanel panel,int velocidad) {
         this.panel = panel;
-
+        this.velocidad=velocidad;
         grafica_barras(panel);
     }
 
@@ -37,7 +37,7 @@ public class SeleccionAscendente extends Thread {
             Grafica aux,tem;
             int indiceMinimo;
              int pos;
-             
+             /*
                  for(int i=0;i<Static.contadorElementos-1;i++){
             indiceMinimo=Static.elementos[i].getCantidad();
             pos=i;
@@ -53,8 +53,8 @@ public class SeleccionAscendente extends Thread {
                 Static.elementos[pos]=tem;
                 
             }
-        }
-             /*
+        }*/
+             
              for(int i=0; i < Static.contadorElementos - 1; i++){
 			pos=i;
                         
@@ -64,7 +64,7 @@ public class SeleccionAscendente extends Thread {
                                                                         System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
 
 				}
-			}Thread.sleep(1000);
+			}Thread.sleep(velocidad);
 			if(pos !=i){
 				aux =Static.elementos[pos];
 				Static.elementos [pos] =Static.elementos[i];
@@ -75,7 +75,7 @@ public class SeleccionAscendente extends Thread {
 			}
                          
 		}
-             */
+             
 		
                /*
             

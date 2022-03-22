@@ -8,12 +8,14 @@ package Ventanas;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -96,7 +98,13 @@ public class MetodosSueltos {
          panel.validate();
         //pack();
         //panel.repaint();
-
+         try {
+            final File file = new File("name.png"); //Definición del archivo con nombre y extensión
+            ChartUtilities.saveChartAsPNG(file, barras, 800, 500); //Generar gráfica en formato PNG
+             System.out.println("imagengenerada");
+        } catch(IOException e) {
+            System.out.println("Imagen no generada.");
+        }
         
         
     }

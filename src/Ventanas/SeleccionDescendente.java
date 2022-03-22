@@ -19,21 +19,47 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author Elvis
  */
-public class SeleccionDescendente extends Thread{
+public class SeleccionDescendente extends Thread {
+
     JPanel panel;
     JLabel grafica_personas;
-    public SeleccionDescendente(JPanel panel) {
+    int velocidad;
+
+    public SeleccionDescendente(JPanel panel, int velocidad) {
         this.panel = panel;
+        this.velocidad = velocidad;
 
         grafica_barras(panel);
     }
-  @Override
+
+    @Override
     public void run() {
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
-            int indiceMinimo,auxiliar;
+            int indiceMinimo, auxiliar, pos;
+            for (int i = 0; i < Static.contadorElementos - 1; i++) {
+                pos = i;
 
+                for (int j = i + 1; j < Static.contadorElementos; j++) {
+                    if (Static.elementos[j].getCantidad() > Static.elementos[pos].getCantidad()) {
+                        pos = j;
+                        System.out.println(Static.elementos[i].getCantidad() + Static.elementos[i].getNombre());
+
+                    }
+                }
+                Thread.sleep(velocidad);
+                if (pos != i) {
+                    aux = Static.elementos[pos];
+                    Static.elementos[pos] = Static.elementos[i];
+                    Static.elementos[i] = aux;
+                    Pasos.y++;
+                    grafica_barras(panel);
+
+                }
+
+            }
+            /*
             for (int i = 0; i < Static.contadorElementos; i++) {
                 indiceMinimo = i;
                 for (int j = i + 1; j < Static.contadorElementos; j++) {
@@ -50,9 +76,9 @@ public class SeleccionDescendente extends Thread{
                     
                 }
 
-            }
+            }*/
             for (int i = 0; i < Static.contadorElementos; i++) {
-                System.out.println(Static.elementos[i].getCantidad()+ Static.elementos[i].getNombre());
+                System.out.println(Static.elementos[i].getCantidad() + Static.elementos[i].getNombre());
             }
             VentanaPrincipal.iniciaHilo = false; //finaliza hilo cronometro
             VentanaPrincipal.iniciaPasos = false; // finaliza hilo pasos

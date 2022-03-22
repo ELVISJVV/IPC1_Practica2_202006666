@@ -25,9 +25,10 @@ public class MetodoBurbuja extends Thread {
     JPanel panel;
     JLabel grafica_personas;
     boolean ordenado = false;
-
-    public MetodoBurbuja(JPanel panel) {
+int velocidad;
+    public MetodoBurbuja(JPanel panel,int velocidad) {
         this.panel = panel;
+        this.velocidad=velocidad;
         // grafica_personas = new JLabel();
         // grafica_personas.setBounds(20, 20, 620, 300);
         //grafica_personas.setOpaque(true);
@@ -87,10 +88,10 @@ public class MetodoBurbuja extends Thread {
 
                         Pasos.y++;
                        
-                       
+                        Thread.sleep(velocidad);
                     }
 
-                    Thread.sleep(1000);
+                   
                     // VentanaPrincipal.steps++;
                      
                    

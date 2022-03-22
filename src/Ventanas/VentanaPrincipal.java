@@ -44,6 +44,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     static boolean iniciaPasos = true;
     boolean corriendo = false;
     boolean corriendoPasos = false;
+    
+    static String velocidadReporte;
+    static String tipoReporte;
+    static String ordenamientoReporte;
+    
+    static String pasosReporte;
+    static String tiempoReporte;
+    
 
     static String titulos = "";
 
@@ -456,6 +464,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         cronometro.setText("00:00:00");
         labelPasos.setText("0");
+        iniciaHilo = true;
+        corriendo = false;
+        iniciaPasos = true;
+        corriendoPasos = false;
+        cronometro.setText("00:00:00");
+        labelPasos.setText("0");
         String rutas = ruta.getText();
         PanelGrafica.removeAll();
         String nombreGrafico = titulo.getText();
@@ -465,6 +479,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String orden = String.valueOf(object1);
         Object object2 = TipoVelocidad1.getSelectedItem();
         String velocidad = String.valueOf(object2);
+        
+        
+        
 
         if (rutas.length() != 0) {
             tipoDeAlgoritmo.setText(algoritmo);
@@ -474,37 +491,52 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             System.out.println("no funciono");
         }
         
+        
+
+
+        int speed=0;
+         if (velocidad.equals("Media")) {
+            speed=500;
+
+            } else if (velocidad.equals("Rápida")) {
+                speed=100;
+            
+            }else if(velocidad.equals("Lenta")){
+                speed=1160;
+            }
+         
+         
         if (algoritmo.equals("Burbuja")) {
             if (orden.equals("Ascendente")) {
-                MetodoBurbuja burb = new MetodoBurbuja(PanelGrafica);
+                MetodoBurbuja burb = new MetodoBurbuja(PanelGrafica,speed);
                 burb.start();
 
             } else if (orden.equals("Descendente")) {
 
-                MetodoBurbujaDescendente bd = new MetodoBurbujaDescendente(PanelGrafica);
+                MetodoBurbujaDescendente bd = new MetodoBurbujaDescendente(PanelGrafica,speed);
                 bd.start();
             }
         } else if (algoritmo.equals("Por Inserción")) {
             if (orden.equals("Ascendente")) {
                 
-                   InsercionAscendente ia = new InsercionAscendente(PanelGrafica);
+                   InsercionAscendente ia = new InsercionAscendente(PanelGrafica,speed);
                 ia.start();
 
             } else if (orden.equals("Descendente")) {
 
-                InsercionDescendente id = new InsercionDescendente(PanelGrafica);
+                InsercionDescendente id = new InsercionDescendente(PanelGrafica,speed);
                 id.start();
             }
 
         }else if(algoritmo.equals("Por Selección")){
             if (orden.equals("Ascendente")) {
                 
-                SeleccionAscendente sa =new SeleccionAscendente(PanelGrafica);
+                SeleccionAscendente sa =new SeleccionAscendente(PanelGrafica,speed);
             sa.start();
 
             } else if (orden.equals("Descendente")) {
 
-              SeleccionDescendente sd = new SeleccionDescendente(PanelGrafica);
+              SeleccionDescendente sd = new SeleccionDescendente(PanelGrafica,speed);
               sd.start();
             }
            
@@ -581,93 +613,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         MetodosSueltos a = new MetodosSueltos(rutas, PanelGrafica, titulos);
         repaint();
 
-        /*
-         String rutas = ruta.getText();
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
-        String texto = "";
-        String nombreGrafico = titulo.getText();
-        String nombrebarras = "";
-        String nombrenumeracion = "";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(rutas));
-            String linea;
-            while ((linea = br.readLine()) != null) { //leer
-                //área de lectura línea por línea, estructura: categoria,valor  [Salto de linea]  pollo,10
-                String columnas[] = linea.split(",");
-                // texto += "Categoria: " + columnas[0] + "   |    Valor:" + columnas[1]+"\n"; 
-                //texto += columnas[0] + columnas[1] + "\n";
-
-                if (MetodosSueltos.validaNumeroEntero_Exp(columnas[1])) {
-                    int numEntero = Integer.parseInt(columnas[1]);
-                    data.setValue(numEntero, columnas[0], " ");
-                } else if (!MetodosSueltos.validaNumeroEntero_Exp(columnas[1])) {
-                    nombrebarras = columnas[0];
-                    nombrenumeracion = columnas[1];
-
-                }
-                //   int numEntero = Integer.parseInt(columnas[1]);
-
-            }
-            br.close(); //cerrar el flujo y liberar recursos
-        } catch (IOException e) {
-            //en caso de error 
-        }
-
-        JFreeChart barras = ChartFactory.createBarChart(nombreGrafico, nombrebarras, nombrenumeracion, data, PlotOrientation.VERTICAL, true, true, false);
-        ChartPanel panel = new ChartPanel(barras);
-        panel.setMouseWheelEnabled(true);
-        panel.setPreferredSize(new Dimension(500, 540));
-
-        PanelGrafica.setLayout(new BorderLayout());
-        PanelGrafica.add(panel, BorderLayout.CENTER);
-        pack();
-        PanelGrafica.repaint();
-
-         */
- /*
-        String texto = "";
-        String rutas=ruta.getText();
-        int contadorNum=0;
-        int contadorLetras=0;
-      
-         
         
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(rutas)); 
-            String linea; 
-            
-            while((linea = br.readLine()) != null) { //leer
-                //área de lectura línea por línea, estructura: categoria,valor  [Salto de linea]  pollo,10
-                String columnas[] = linea.split(",");
-               // texto += "Categoria: " + columnas[0] + "   |    Valor:" + columnas[1]+"\n";
-                texto +=   columnas[0]  + columnas[1]+"\n";
-                 int cadenaNumero[]=new int [columnas.length/2];
-                 String cadenaLetras[]=new String [columnas.length/2];
-                 for (int i = 0; i < columnas.length; i++) {
-                     if (i%2!=0 ) {
-                         cadenaNumero[contadorNum]= Integer.parseInt(columnas[i]);
-                         contadorNum++;
-                         
-                     } else {
-                         cadenaLetras[contadorLetras]=columnas[i];
-                         contadorLetras++;
-                     }
-                }
-                 for (int i = 0; i < contadorLetras; i++) {
-            System.out.println(cadenaLetras[i]+ "  " + cadenaNumero[i]);
-        }
-            } 
-         
-            br.close(); //cerrar el flujo y liberar recursos
-        } catch(IOException e) {
-           //en caso de error 
-           
-        }
-       
-        
-      
-         //System.out.println(texto);
-         */
 
     }//GEN-LAST:event_cargarActionPerformed
 
