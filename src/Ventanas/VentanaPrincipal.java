@@ -504,7 +504,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 speed=100;
             
             }else if(velocidad.equals("Lenta")){
-                speed=1160;
+                speed=1260;
             }
          
          

@@ -97,8 +97,9 @@ public class MetodosSueltos {
                         + "     </tr>\n";
 
             }*/
-           a="";
-              a += "<TABLE BORDER>\n";
+             a = "<div style=\"text-align:center;\">\n"
+                    + "	<table border=\"1\" style=\"margin: 0 auto;\">";
+            a += "\n";
               a+= "	<TR><TH>" + nombrebarras + "</TH>\n";
             for (int i = 0; i < Static.contadorElementos; i++) {
                 a +=  
@@ -153,18 +154,5 @@ public class MetodosSueltos {
     }
     
 
-public void abrirarchivo(String archivo){
 
-     try {
-
-            File objetofile = new File (archivo);
-            Desktop.getDesktop().open(objetofile);
-
-     }catch (IOException ex) {
-
-            System.out.println(ex);
-
-     }
-
-}  
 }

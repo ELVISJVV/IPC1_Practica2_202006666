@@ -85,6 +85,29 @@ public class SeleccionDescendente extends Thread {
             VentanaPrincipal.iniciaHilo = false; //finaliza hilo cronometro
             VentanaPrincipal.iniciaPasos = false; // finaliza hilo pasos
             grafica_barras(panel);
+
+            String a = "";
+
+            a = "<div style=\"text-align:center;\">\n"
+                    + "	<table border=\"1\" style=\"margin: 0 auto;\">";
+            a += "\n";
+            a += "	<TR><TH>" + MetodosSueltos.nombrebarras + "</TH>\n";
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                a
+                        += "		<TD>" + Static.elementos[i].getNombre() + "</TD> \n";
+
+            }
+            a += "	<TR><TH>" + MetodosSueltos.nombrenumeracion + "</TH>\n";
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                a += "		<TD>" + Static.elementos[i].getCantidad() + "</TD> \n";
+            }
+            a += "</TABLE>";
+            MetodosSueltos.tablaOrdenada = a;
+            System.out.println(MetodosSueltos.tablaOrdenada);
+            Reporte report = new Reporte(VentanaPrincipal.velocidadReporte, VentanaPrincipal.tipoReporte, VentanaPrincipal.ordenamientoReporte, Pasos.y, Cronometro.timer);
+
+            AbrirArchivo openFile = new AbrirArchivo("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\reporte.html");
+
         } catch (InterruptedException e) {
             System.out.println("Error al Ordenar");
         }
@@ -113,8 +136,8 @@ public class SeleccionDescendente extends Thread {
 
             panel.setLayout(new BorderLayout());
             panel.add(panel_grafica, BorderLayout.CENTER);
-           // panel.validate();
-            
+            // panel.validate();
+
             if (VentanaPrincipal.iniciaHilo == false && VentanaPrincipal.iniciaPasos == false) {
                 final File file = new File("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\ordenada.png"); //Definición del archivo con nombre y extensión
                 ChartUtilities.saveChartAsPNG(file, barras, 800, 500); //Generar gráfica en formato PNG

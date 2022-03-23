@@ -96,8 +96,9 @@ public class MetodoBurbuja extends Thread {
 
             String a = "";
 
-            a = "";
-            a += "<TABLE BORDER>\n";
+            a = "<div style=\"text-align:center;\">\n"
+                    + "	<table border=\"1\" style=\"margin: 0 auto;\">";
+            a += "\n";
             a += "	<TR><TH>" + MetodosSueltos.nombrebarras + "</TH>\n";
             for (int i = 0; i < Static.contadorElementos; i++) {
                 a
@@ -109,13 +110,12 @@ public class MetodoBurbuja extends Thread {
                 a += "		<TD>" + Static.elementos[i].getCantidad() + "</TD> \n";
             }
             a += "</TABLE>";
-            MetodosSueltos.tablaOrdenada=a;
-            System.out.println( MetodosSueltos.tablaOrdenada);
+            MetodosSueltos.tablaOrdenada = a;
+            System.out.println(MetodosSueltos.tablaOrdenada);
             Reporte report = new Reporte(VentanaPrincipal.velocidadReporte, VentanaPrincipal.tipoReporte, VentanaPrincipal.ordenamientoReporte, Pasos.y, Cronometro.timer);
-            
-            
-            abrirarchivo("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\reporte.html");
-          
+
+           AbrirArchivo openFile = new AbrirArchivo("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\reporte.html");
+
         } catch (InterruptedException e) {
             System.out.println("Error al Ordenar");
         }
@@ -157,18 +157,6 @@ public class MetodoBurbuja extends Thread {
             System.out.println(e);
         }
     }
-public void abrirarchivo(String archivo){
 
-     try {
-
-            File objetofile = new File (archivo);
-            Desktop.getDesktop().open(objetofile);
-
-     }catch (IOException ex) {
-
-            System.out.println(ex);
-
-     }
-
-}  
+    
 }
