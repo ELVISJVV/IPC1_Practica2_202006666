@@ -5,13 +5,18 @@
  */
 package Ventanas;
 
+import static Ventanas.MetodosSueltos.nombrebarras;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -25,10 +30,11 @@ public class MetodoBurbuja extends Thread {
     JPanel panel;
     JLabel grafica_personas;
     boolean ordenado = false;
-int velocidad;
-    public MetodoBurbuja(JPanel panel,int velocidad) {
+    int velocidad;
+
+    public MetodoBurbuja(JPanel panel, int velocidad) {
         this.panel = panel;
-        this.velocidad=velocidad;
+        this.velocidad = velocidad;
         // grafica_personas = new JLabel();
         // grafica_personas.setBounds(20, 20, 620, 300);
         //grafica_personas.setOpaque(true);
@@ -44,7 +50,7 @@ int velocidad;
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
-            int bandera =1;
+            int bandera = 1;
             /*
                   for (int i = 0; i < Static.contadorElementos-1 && bandera==1; i++) {
            bandera=0;
@@ -58,25 +64,14 @@ int velocidad;
                         Static.elementos[j+1] = aux;
                         // grafica_barras(panel,grafica_personas);
                         grafica_barras(panel);
-
                         Pasos.y++;
-                       
-                       
                     }
-
                     Thread.sleep(1000);
                     // VentanaPrincipal.steps++;
-                     
-                   
                 }
-
-            }
-            */
-      
-            
-            
+            }        */
             for (int i = 0; i < Static.contadorElementos - 1; i++) {
-           
+
                 for (int j = 0; j < Static.contadorElementos - i - 1; j++) {
 
                     if (Static.elementos[j + 1].getCantidad() < Static.elementos[j].getCantidad()) {
@@ -87,23 +82,40 @@ int velocidad;
                         grafica_barras(panel);
 
                         Pasos.y++;
-                       
+
                         Thread.sleep(velocidad);
                     }
 
-                   
-                    // VentanaPrincipal.steps++;
-                     
-                   
                 }
 
             }
+
+            VentanaPrincipal.iniciaHilo = false;
+            VentanaPrincipal.iniciaPasos = false;
+            grafica_barras(panel);
+
+            String a = "";
+
+            a = "";
+            a += "<TABLE BORDER>\n";
+            a += "	<TR><TH>" + MetodosSueltos.nombrebarras + "</TH>\n";
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                a
+                        += "		<TD>" + Static.elementos[i].getNombre() + "</TD> \n";
+
+            }
+            a += "	<TR><TH>" + MetodosSueltos.nombrenumeracion + "</TH>\n";
+            for (int i = 0; i < Static.contadorElementos; i++) {
+                a += "		<TD>" + Static.elementos[i].getCantidad() + "</TD> \n";
+            }
+            a += "</TABLE>";
+            MetodosSueltos.tablaOrdenada=a;
+            System.out.println( MetodosSueltos.tablaOrdenada);
+            Reporte report = new Reporte(VentanaPrincipal.velocidadReporte, VentanaPrincipal.tipoReporte, VentanaPrincipal.ordenamientoReporte, Pasos.y, Cronometro.timer);
             
             
-
-           VentanaPrincipal.iniciaHilo = false;
-           VentanaPrincipal.iniciaPasos = false;
-
+            abrirarchivo("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\reporte.html");
+          
         } catch (InterruptedException e) {
             System.out.println("Error al Ordenar");
         }
@@ -132,16 +144,31 @@ int velocidad;
 
             panel.setLayout(new BorderLayout());
             panel.add(panel_grafica, BorderLayout.CENTER);
-            panel.validate();
-            //  panel_grafica.setMouseWheelEnabled(true);
-            // panel.setLayout(new BorderLayout());
-            // grafica_personas.setLayout(new java.awt.BorderLayout());
-            //   grafica_personas.add(panel_grafica, BorderLayout.CENTER);
-            //   grafica_personas.validate();
+            //panel.validate();
+
+            if (VentanaPrincipal.iniciaHilo == false && VentanaPrincipal.iniciaPasos == false) {
+                final File file = new File("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\ordenada.png"); //Definición del archivo con nombre y extensión
+                ChartUtilities.saveChartAsPNG(file, barras, 800, 500); //Generar gráfica en formato PNG
+                System.out.println("imagengenerada");
+
+            }
 
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+public void abrirarchivo(String archivo){
 
+     try {
+
+            File objetofile = new File (archivo);
+            Desktop.getDesktop().open(objetofile);
+
+     }catch (IOException ex) {
+
+            System.out.println(ex);
+
+     }
+
+}  
 }

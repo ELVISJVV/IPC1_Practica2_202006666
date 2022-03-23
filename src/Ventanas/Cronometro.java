@@ -15,7 +15,7 @@ public class Cronometro extends Thread {
 
     JLabel eti;
     static int x = 0;
-
+    static String timer= "";
     Cronometro(JLabel cronometro) {
         VentanaPrincipal.hora = 0;
         VentanaPrincipal.segundo = 0;
@@ -77,6 +77,7 @@ public class Cronometro extends Thread {
         //textoSeg+=VentanaPrincipal.segundo;
         //textMin+=VentanaPrincipal.minuto;
         String reloj = textHora + ":" + textMin + ":" + textoSeg;
+        timer=reloj;
         eti.setText(reloj);
 
     }

@@ -480,7 +480,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Object object2 = TipoVelocidad1.getSelectedItem();
         String velocidad = String.valueOf(object2);
         
-        
+        velocidadReporte=velocidad;
+        tipoReporte=orden;
+        ordenamientoReporte=algoritmo;
         
 
         if (rutas.length() != 0) {

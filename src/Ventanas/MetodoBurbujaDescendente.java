@@ -7,11 +7,18 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartRenderingInfo;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -19,15 +26,16 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author Elvis
  */
-public class MetodoBurbujaDescendente extends Thread{
- JPanel panel;
+public class MetodoBurbujaDescendente extends Thread {
+
+    JPanel panel;
     JLabel grafica_personas;
     int velocidad;
     boolean ordenado = false;
 
-    public MetodoBurbujaDescendente(JPanel panel,int velocidad) {
+    public MetodoBurbujaDescendente(JPanel panel, int velocidad) {
         this.panel = panel;
-       this.velocidad=velocidad;
+        this.velocidad = velocidad;
         grafica_barras(panel);
     }
 
@@ -36,29 +44,27 @@ public class MetodoBurbujaDescendente extends Thread{
         try {
             //aqui empieza el metodo burbuja
             Grafica aux;
-            
-            for (int i = 0; i < Static.contadorElementos-1 ; i++) {
-                for (int j = 0; j < Static.contadorElementos -i- 1; j++) {
+
+            for (int i = 0; i < Static.contadorElementos - 1; i++) {
+                for (int j = 0; j < Static.contadorElementos - i - 1; j++) {
                     if (Static.elementos[j + 1].getCantidad() > Static.elementos[j].getCantidad()) {
                         aux = Static.elementos[j];
-                        Static.elementos[j] = Static.elementos[j+1];
-                        Static.elementos[j+1] = aux;
+                        Static.elementos[j] = Static.elementos[j + 1];
+                        Static.elementos[j + 1] = aux;
                         // grafica_barras(panel,grafica_personas);
                         grafica_barras(panel);
 
                         Pasos.y++;
-                       
-                       Thread.sleep(velocidad);
+
+                        Thread.sleep(velocidad);
                     }
 
-                    
-                    
                 }
 
             }
-           VentanaPrincipal.iniciaHilo = false;
-           VentanaPrincipal.iniciaPasos = false;
-
+            VentanaPrincipal.iniciaHilo = false;
+            VentanaPrincipal.iniciaPasos = false;
+            grafica_barras(panel);
         } catch (InterruptedException e) {
             System.out.println("Error al Ordenar");
         }
@@ -87,8 +93,14 @@ public class MetodoBurbujaDescendente extends Thread{
 
             panel.setLayout(new BorderLayout());
             panel.add(panel_grafica, BorderLayout.CENTER);
-            panel.validate();
-          
+           // panel.validate();
+
+             if (VentanaPrincipal.iniciaHilo == false && VentanaPrincipal.iniciaPasos == false) {
+                final File file = new File("A:\\Programas Java\\Practica2_Graficas\\IPC1_Practica2_202006666\\ordenada.png"); //Definición del archivo con nombre y extensión
+                ChartUtilities.saveChartAsPNG(file, barras, 800, 500); //Generar gráfica en formato PNG
+                System.out.println("imagengenerada");
+
+            }
 
         } catch (Exception e) {
             System.out.println(e);
