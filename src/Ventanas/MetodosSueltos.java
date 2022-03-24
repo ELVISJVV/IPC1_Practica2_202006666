@@ -64,10 +64,9 @@ public class MetodosSueltos {
             BufferedReader br = new BufferedReader(new FileReader(ruta));
             String linea;
             while ((linea = br.readLine()) != null) { //leer
-                //área de lectura línea por línea, estructura: categoria,valor  [Salto de linea]  pollo,10
+               
                 String columnas[] = linea.split(",");
-                // texto += "Categoria: " + columnas[0] + "   |    Valor:" + columnas[1]+"\n"; 
-                //texto += columnas[0] + columnas[1] + "\n";
+                
 
                 if (MetodosSueltos.validaNumeroEntero_Exp(columnas[1])) {
                     int numEntero = Integer.parseInt(columnas[1]);
@@ -83,20 +82,7 @@ public class MetodosSueltos {
 
             }
             String a = "";
-           /*
-            for (int i = 0; i < Static.contadorElementos; i++) {
-                // a += Static.elementos[i].getCantidad() + Static.elementos[i].getNombre() + "\n";
-                a += "    <tr>\n"
-                        + "        <td>        "
-                        + Static.elementos[i].getCantidad()
-                        + "</td>\n"
-                        + "         <td>"
-                        + Static.elementos[i].getNombre()
-                        + "         </td>\n"
-                        + "  \n"
-                        + "     </tr>\n";
-
-            }*/
+          
              a = "<div style=\"text-align:center;\">\n"
                     + "	<table border=\"1\" style=\"margin: 0 auto;\">";
             a += "\n";
@@ -143,12 +129,7 @@ public class MetodosSueltos {
 
     }
 
-    public String leerTxt(String dirreccion) {
-        String texto = "";
-
-        return texto;
-    }
-
+    
     public static boolean validaNumeroEntero_Exp(String texto) {
         return texto.matches("^-?[0-9]+$");
     }

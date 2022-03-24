@@ -9,10 +9,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-/**
- *
- * @author Elvis
- */
+
 public class AbrirArchivo {
     
      public AbrirArchivo (String archivo) {
